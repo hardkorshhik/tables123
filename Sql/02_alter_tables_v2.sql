@@ -1,12 +1,9 @@
 ALTER TABLE exchange_rates
-    ADD COLUMN buy_rate NUMERIC(10, 4) NOT NULL DEFAULT 0,
-    ADD COLUMN sell_rate NUMERIC(10, 4) NOT NULL DEFAULT 0;
+    ADD COLUMN buy_rate NUMERIC(10, 4) NOT NULL,
+    ADD COLUMN sell_rate NUMERIC(10, 4) NOT NULL;
 
 UPDATE exchange_rates
-SET buy_rate = rate, sell_rate = 0;
-
-ALTER TABLE exchange_rates
-    DROP COLUMN rate;
+SET buy_rate = rate, sell_rate = rate;
 
 ALTER TABLE banks
     ADD COLUMN country_id INTEGER;
@@ -30,3 +27,6 @@ WHERE name = 'Bank of Japan';
 ALTER TABLE banks
     ALTER COLUMN country_id SET NOT NULL,
     ADD CONSTRAINT fk_bank_country FOREIGN KEY (country_id) REFERENCES countries(id);
+
+ALTER TABLE banks
+    ADD CONSTRAINT unique_bank_country UNIQUE (name, country_id);

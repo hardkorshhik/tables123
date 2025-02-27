@@ -2,7 +2,7 @@ DO $$
 DECLARE
     i INT := 1;
 BEGIN
-    WHILE i <= 100000 LOOP
+    WHILE i <= 1000 LOOP
         INSERT INTO exchange_rates (currency_id, exchange_currency_id, rate, amount, exchange_date, bank_id, source, buy_rate, sell_rate)
         VALUES (
             (SELECT id FROM currencies ORDER BY RANDOM() LIMIT 1),

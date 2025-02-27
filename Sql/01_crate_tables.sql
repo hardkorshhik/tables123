@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS exchange_rates (
                                               exchange_currency_id INTEGER NOT NULL,
                                               rate NUMERIC(10, 4) NOT NULL,
     amount NUMERIC(10, 2) NOT NULL DEFAULT 1,
-    effective_date DATE NOT NULL,
+    exchange_date DATE NOT NULL,
     bank_id INTEGER NOT NULL,
     source VARCHAR(50),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS exchange_rates (
     CONSTRAINT fk_bank FOREIGN KEY(bank_id) REFERENCES banks(id)
     );
 
-CREATE INDEX IF NOT EXISTS idx_exchange_rates_effective_date
-    ON exchange_rates(effective_date);
+CREATE INDEX IF NOT EXISTS idx_exchange_rates_exchange_date
+    ON exchange_rates(exchange_date);
 
 CREATE INDEX IF NOT EXISTS idx_exchange_rates_currency_id
     ON exchange_rates(currency_id);
